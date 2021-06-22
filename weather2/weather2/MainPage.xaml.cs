@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,18 +21,41 @@ namespace weather2
 
         private void OnButtonClicked(object sender, EventArgs e)
         {
+            string city = entry1.Text.Trim(' ');
+            
+            Request(city);
+        }
 
-            Request request = new Request();
-            WeatherResponse weatherResponse = new WeatherResponse();
-            string city = entry1.Text;
+        public async void Request(object city)
+        {
+            await Task.Run(() =>
+            {
+                string url = $"https://api.openweathermap.org/data/2.5/weather?q={city}&units=metric&appid=4f592b2566721ec99b69bb95df24da9a";
 
-            Thread myThread = new Thread(new ParameterizedThreadStart(request.Main));
-            myThread.Start(city);
-            Thread t = Thread.CurrentThread;
-            myThread.Join(500);
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
 
-            label1.Text = $"{Math.Round(Request.Temp, 1)}°C";
-            label2.Text = $"{Request.Name}";
+                string response;
+
+                using (StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
+                {
+                    response = streamReader.ReadToEnd();
+                }
+
+                WeatherResponse weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response);
+
+                if (weatherResponse.Main.Temp >= 0)
+                    labelDegree.Text = $"+{Math.Round(weatherResponse.Main.Temp, 1)}°C";
+                else
+                {
+                    labelCity.Text = $"{weatherResponse.Name}";
+                }
+
+                labelPressure.Text = $"Pressure: {weatherResponse.Main.Pressure} mbar";
+                labelVisibility.Text = $"Visibility: {Math.Round(weatherResponse.Visibility / 1000, 1)} km";
+                labelHumidity.Text = $"Humidity: {weatherResponse.Main.Humidity}%";
+
+            });
         }
     }
 }

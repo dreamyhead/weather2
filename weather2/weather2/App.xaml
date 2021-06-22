@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="weather2.App">
     <Application.Resources>
-
+        <StyleSheet Source="/styles.css" />
     </Application.Resources>
 </Application>

@@ -8,5 +8,6 @@ namespace weather2
     {
         public TemperatureInfo Main { get; set; }
         public string Name { get; set; }
+        public float Visibility { get; set; }
     }
 }

@@ -2,14 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="weather2.MainPage">
-
+    <ContentPage.Resources>
+        <StyleSheet Source="/styles.css" />
+    </ContentPage.Resources>
 
     <Grid RowSpacing="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
+            <RowDefinition Height="160" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="70"   />
+            <RowDefinition Height="70"   />
+            <RowDefinition Height="70"   />
             <RowDefinition Height="*"   />
             <RowDefinition Height="100" />
             <RowDefinition Height="100" />
@@ -17,19 +23,37 @@
 
 
         <Frame Grid.Column="0" Grid.Row="0">
-            <Label VerticalOptions="End" HorizontalTextAlignment="Center" x:Name="label1" FontSize="95"/>
+            <Label Text ="" x:Name="labelDegree" />
         </Frame>
 
         <Frame Grid.Column="0" Grid.Row="1">
-            <Label VerticalOptions="Start" HorizontalTextAlignment="Center" x:Name="label2"  FontSize="25"/>
+            <Label Text ="" x:Name="labelCity" />
         </Frame>
 
         <Frame Grid.Column="0" Grid.Row="2">
+            <Label Text ="Pressure:" x:Name="labelPressure" />
+        </Frame>
+
+        <Frame Grid.Column="0" Grid.Row="3">
+            <Label Text ="Visibility:" x:Name="labelVisibility" />
+        </Frame>
+
+        <Frame Grid.Column="0" Grid.Row="4">
+            <Label Text ="Humidity:" x:Name="labelHumidity" />
+        </Frame>
+
+        <Frame Grid.Column="0" Grid.Row="5">
+            <Label/>
+        </Frame>
+        
+        <Frame Grid.Column="0" Grid.Row="6">
             <Entry VerticalOptions="Center" Placeholder="your city" HorizontalTextAlignment="Center" x:Name="entry1"/>
         </Frame>
-        <Frame Grid.Column="0" Grid.Row="3">
-            <Button BorderRadius="50" Margin="5" Text="Enter request" Clicked="OnButtonClicked"/>
+        
+        <Frame Grid.Column="0" Grid.Row="7">
+            <Button BorderRadius="50" Margin="5" Text="Нажать" Clicked="OnButtonClicked"/>
         </Frame>
+        
     </Grid>
 
 </ContentPage>

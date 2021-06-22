@@ -1,0 +1,19 @@
+﻿* {
+}
+#labelDegree {
+    text-align: center;
+    font-size: 100;
+}
+
+#labelCity {
+    text-align: center;
+    font-size: 35;
+}
+
+#labelPressure, #labelHumidity, #labelVisibility {
+    font-size: 20;
+}
+
+#buttonRequest{
+    background-color: gray;
+}

@@ -7,8 +7,6 @@ namespace weather2
 {
     class Request
     {
-        public static string Name;
-        public static float Temp;
         public void Main(object city)
         {
 
@@ -25,10 +23,6 @@ namespace weather2
             }
 
             WeatherResponse weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response);
-            Console.WriteLine($"{weatherResponse.Main.Temp}, {weatherResponse.Name}");
-            Temp = weatherResponse.Main.Temp;
-            Name = weatherResponse.Name;
-
         }
     }
 }
