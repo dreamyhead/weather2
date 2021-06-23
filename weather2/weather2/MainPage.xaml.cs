@@ -26,7 +26,7 @@ namespace weather2
             Request(city);
         }
 
-        public async void Request(object city)
+        public async void Request(string city)
         {
             await Task.Run(() =>
             {
@@ -44,17 +44,19 @@ namespace weather2
 
                 WeatherResponse weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response);
 
-                if (weatherResponse.Main.Temp >= 0)
-                    labelDegree.Text = $"+{Math.Round(weatherResponse.Main.Temp, 1)}°C";
-                else
+
+                Device.BeginInvokeOnMainThread(() =>
                 {
+                    if (weatherResponse.Main.Temp >= 0)
+                        labelDegree.Text = $"+{Math.Round(weatherResponse.Main.Temp, 1)}°C";
+                    else
+                        labelDegree.Text = $"{Math.Round(weatherResponse.Main.Temp, 1)}°C";
+
                     labelCity.Text = $"{weatherResponse.Name}";
-                }
-
-                labelPressure.Text = $"Pressure: {weatherResponse.Main.Pressure} mbar";
-                labelVisibility.Text = $"Visibility: {Math.Round(weatherResponse.Visibility / 1000, 1)} km";
-                labelHumidity.Text = $"Humidity: {weatherResponse.Main.Humidity}%";
-
+                    labelPressure.Text = $"Pressure: {weatherResponse.Main.Pressure} mbar";
+                    labelVisibility.Text = $"Visibility: {Math.Round(weatherResponse.Visibility / 1000, 1)} km";
+                    labelHumidity.Text = $"Humidity: {weatherResponse.Main.Humidity}%";
+                });
             });
         }
     }
